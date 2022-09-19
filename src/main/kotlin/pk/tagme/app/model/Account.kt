@@ -16,5 +16,5 @@ data class Account(
     val name: String,
 
     @Column("balance")
-    val balance: BigDecimal
+    var balance: BigDecimal
 )

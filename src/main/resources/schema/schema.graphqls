@@ -1,0 +1,39 @@
+type Query{
+    accounts: [Account]
+}
+
+type Mutation {
+    withdraw(withdrawal: Withdrawal): Account
+}
+
+type Subscription {
+    accountBalanceChanged(accountId: ID!): Account
+}
+
+type Account {
+    id: ID
+    name: String!
+    balance: Float!
+    cards: [Card]
+}
+
+type Card {
+    id: ID
+    name: String!
+}
+
+input PaymentLimit {
+    id: ID
+    type: PaymentLimitType!
+}
+
+enum PaymentLimitType {
+    DAILY
+    WEEKLY
+    MONTHLY
+}
+
+input Withdrawal {
+    accountId: ID!
+    amount: Float!
+}

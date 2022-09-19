@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_DB: tag
+      POSTGRES_USER: tag
+      POSTGRES_PASSWORD: tag
+    ports:
+      - '6432:5432'
+
