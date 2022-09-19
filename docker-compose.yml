@@ -9,3 +9,16 @@ services:
     ports:
       - '6432:5432'
 
+  tag-poc-api:
+    build: .
+    ports:
+      - 8080:8080
+    environment:
+      JAVA_OPTS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_R2DBC_URL: r2dbc:postgresql://postgres:5432/tag
+      SPRING_R2DBC_USERNAME: tag
+      SPRING_R2DBC_PASSWORD: tag
+      SPRING_LIQUIBASE_URL: jdbc:postgresql://postgres:5432/tag
+      SPRING_LIQUIBASE_USER: tag
+      SPRING_LIQUIBASE_PASSWORD: tag
