@@ -1,3 +1,5 @@
 databaseChangeLog:
+  - include:
+      file: classpath:db/changelog/changes/initial-schema.sql
   - includeAll:
       path: db/changelog/changes

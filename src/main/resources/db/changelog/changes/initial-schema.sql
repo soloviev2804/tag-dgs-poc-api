@@ -1,6 +1,6 @@
 --liquibase formatted sql
 
---changeset vsolovyev:1
+--changeset vsolovyev:sc-5591
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS accounts

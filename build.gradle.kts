@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
+    id("com.netflix.dgs.codegen") version "5.2.4"
 }
 
 group = "pk.tagme"
@@ -18,6 +19,10 @@ repositories {
 extra["testcontainersVersion"] = "1.17.3"
 
 dependencies {
+    implementation(platform("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release"))
+    implementation("com.netflix.graphql.dgs:graphql-dgs-webflux-starter")
+    implementation("com.netflix.graphql.dgs:graphql-dgs-extended-scalars")
+
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -37,6 +42,11 @@ dependencies {
     testImplementation("org.testcontainers:r2dbc")
 }
 
+tasks.withType<com.netflix.graphql.dgs.codegen.gradle.GenerateJavaTask> {
+    generateClient = true
+    packageName = "pk.tagme.app.generated"
+}
+
 dependencyManagement {
     imports {
         mavenBom("org.testcontainers:testcontainers-bom:${property("testcontainersVersion")}")
@@ -52,4 +62,15 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    testLogging {
+        events(
+            org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED,
+            org.gradle.api.tasks.testing.logging.TestLogEvent.STANDARD_ERROR,
+            org.gradle.api.tasks.testing.logging.TestLogEvent.SKIPPED
+        )
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+    }
 }
