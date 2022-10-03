@@ -10,3 +10,8 @@ $ docker-compose up --build
 $ docker-compose up postgres -d
 $ ./gradlew bootRun
 ```
+
+## Build service
+```
+$ ./gradlew build
+```
